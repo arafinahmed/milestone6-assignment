@@ -5,6 +5,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const searchText = document.getElementById('search');
+const imageCounterSection = document.getElementById('image-counter');
 // selected image 
 let sliders = [];
 
@@ -48,6 +49,7 @@ const selectItem = (event, img) => {
     sliders = sliders.filter(x => x!=img);
     element.className = "img-fluid img-thumbnail";
   }
+  imageCounter();
 }
 var timer
 const createSlider = () => {
@@ -134,4 +136,18 @@ const performSearch = () => {
   const search = document.getElementById('search');
   getImages(search.value)
   sliders.length = 0;
+}
+
+const imageCounter = () => {
+  console.log("inside image counter");
+  const len = sliders.length;
+  if(len<=1){
+    imageCounterSection.innerText = `${len} image is selected.`;
+    imageCounterSection.style.color = 'red';
+
+  }
+  else{
+    imageCounterSection.innerText = `${len} images are selected.`;
+    imageCounterSection.style.color = 'green';
+  }
 }

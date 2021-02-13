@@ -6,6 +6,7 @@ const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const searchText = document.getElementById('search');
 const imageCounterSection = document.getElementById('image-counter');
+const durationInput = document.getElementById('duration');
 // selected image 
 let sliders = [];
 
@@ -71,10 +72,7 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  let duration = document.getElementById('duration').value || 1000;
-  if(duration<0){
-    duration = duration*(-1);
-  }
+  const duration = durationInput.value || 1000;
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -122,13 +120,19 @@ searchBtn.addEventListener('click', function () {
 })
 
 sliderBtn.addEventListener('click', function () {
-  createSlider()
+  createSlider();
 })
 
 searchText.addEventListener('keypress', function(e){
   if(e.keyCode == 13){
     performSearch();
     imageCounter();
+  }
+})
+
+durationInput.addEventListener('keypress', function(e){
+  if(e.keyCode==13){
+    createSlider();
   }
 })
 
@@ -152,4 +156,10 @@ const imageCounter = () => {
     imageCounterSection.innerText = `${len} images are selected.`;
     imageCounterSection.style.color = 'green';
   }
+}
+
+const handleNegative = () => {
+ if(durationInput.value == ""){
+   durationInput.value = "";
+ }
 }

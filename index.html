@@ -29,7 +29,7 @@
         <h3 class="head-title text-center">Select image for create slider</h3>
         <h4 id="image-counter" class="head-title text-center">0 image is selected.</h4>
         <div class="input-group col-md-3 mb-2 mb-md-0">
-          <input class="form-control" id="duration" type="number" placeholder="slider change duration">
+          <input oninput="handleNegative();" class="form-control" id="duration" type="number" placeholder="slider change duration">
         </div>
         <button id="create-slider" class="btn btn-primary px-5">Create slider</button>
       </div>

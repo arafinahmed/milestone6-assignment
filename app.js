@@ -4,6 +4,7 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const searchText = document.getElementById('search');
 // selected image 
 let sliders = [];
 
@@ -67,7 +68,10 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  let duration = document.getElementById('duration').value || 1000;
+  if(duration<0){
+    duration = duration*(-1);
+  }
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -110,13 +114,23 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
-  document.querySelector('.main').style.display = 'none';
-  clearInterval(timer);
-  const search = document.getElementById('search');
-  getImages(search.value)
-  sliders.length = 0;
+  performSearch();
 })
 
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+searchText.addEventListener('keypress', function(e){
+  if(e.keyCode == 13){
+    performSearch();
+  }
+})
+
+const performSearch = () => {
+  document.querySelector('.main').style.display = 'none';
+  clearInterval(timer);
+  const search = document.getElementById('search');
+  getImages(search.value)
+  sliders.length = 0;
+}

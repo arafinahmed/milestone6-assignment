@@ -117,6 +117,7 @@ const changeSlide = (index) => {
 }
 
 searchBtn.addEventListener('click', function () {
+  imageCounter();
   performSearch();
 })
 
@@ -127,8 +128,10 @@ sliderBtn.addEventListener('click', function () {
 searchText.addEventListener('keypress', function(e){
   if(e.keyCode == 13){
     performSearch();
+    imageCounter();
   }
 })
+
 
 const performSearch = () => {
   document.querySelector('.main').style.display = 'none';
@@ -139,7 +142,6 @@ const performSearch = () => {
 }
 
 const imageCounter = () => {
-  console.log("inside image counter");
   const len = sliders.length;
   if(len<=1){
     imageCounterSection.innerText = `${len} image is selected.`;

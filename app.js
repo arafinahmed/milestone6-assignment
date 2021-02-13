@@ -38,7 +38,6 @@ const getImages = (query) => {
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
-  console.log(img);
   let element = event.target;
   element.classList.add('added');
  
@@ -49,7 +48,6 @@ const selectItem = (event, img) => {
     sliders = sliders.filter(x => x!=img);
     element.className = "img-fluid img-thumbnail";
   }
-  console.log(sliders);
 }
 var timer
 const createSlider = () => {

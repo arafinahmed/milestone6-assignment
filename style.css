@@ -69,3 +69,7 @@ img {
   font-style: italic;
   color: red;
 }
+#loading{
+  display: none;
+  text-align: center;
+}

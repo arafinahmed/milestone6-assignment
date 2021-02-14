@@ -7,6 +7,7 @@ const sliderContainer = document.getElementById('sliders');
 const searchText = document.getElementById('search');
 const imageCounterSection = document.getElementById('image-counter');
 const durationInput = document.getElementById('duration');
+const loading = document.getElementById('loading');
 // selected image 
 let sliders = [];
 
@@ -18,7 +19,8 @@ const KEY = '4159513-810e14ce5b91a528cc52e3347&q';
 
 // show images 
 const showImages = (images) => {
-  imagesArea.style.display = 'block';
+  imagesArea.style.display = 'none';
+  showLoading();
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
@@ -28,13 +30,16 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
+  
 
 }
 
 const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
-    .then(data => showImages(data.hits))
+    .then(data => {
+      
+      showImages(data.hits);})
     .catch(err => console.log(err))
 }
 
@@ -42,12 +47,12 @@ let slideIndex = 0;
 const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
- 
+
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
   } else {
-    sliders = sliders.filter(x => x!=img);
+    sliders = sliders.filter(x => x != img);
     element.className = "img-fluid img-thumbnail";
   }
   imageCounter();
@@ -123,15 +128,15 @@ sliderBtn.addEventListener('click', function () {
   createSlider();
 })
 
-searchText.addEventListener('keypress', function(e){
-  if(e.keyCode == 13){
+searchText.addEventListener('keypress', function (e) {
+  if (e.keyCode == 13) {
     performSearch();
     imageCounter();
   }
 })
 
-durationInput.addEventListener('keypress', function(e){
-  if(e.keyCode==13){
+durationInput.addEventListener('keypress', function (e) {
+  if (e.keyCode == 13) {
     createSlider();
   }
 })
@@ -147,19 +152,29 @@ const performSearch = () => {
 
 const imageCounter = () => {
   const len = sliders.length;
-  if(len<=1){
+  if (len <= 1) {
     imageCounterSection.innerText = `${len} image is selected.`;
     imageCounterSection.style.color = 'red';
 
   }
-  else{
+  else {
     imageCounterSection.innerText = `${len} images are selected.`;
     imageCounterSection.style.color = 'green';
   }
 }
 
 const handleNegative = () => {
- if(durationInput.value == ""){
-   durationInput.value = "";
- }
+  if (durationInput.value == "") {
+    durationInput.value = "";
+  }
 }
+
+const showLoading = () => {
+  loading.style.display = "block";
+  setTimeout(function(){
+    loading.style.display = "none";
+    imagesArea.style.display = 'block';
+  }, 2000);
+}
+
+
